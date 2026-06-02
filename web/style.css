@@ -1,0 +1,1233 @@
+/* ==========================================================================
+   GRAVITY FLIP POKER - SLEEK VANILLA CSS STYLING SYSTEM
+   Harmonious dark modes, premium typography, 3D animations, glassmorphism
+   ========================================================================== */
+
+/* --- CORE DESIGN SYSTEM TOKENS --- */
+:root {
+    /* Color Palette */
+    --bg-primary: #070913;       /* Cosmic deep background space */
+    --bg-secondary: #0f1225;     /* Dark metallic panel background */
+    --bg-surface: rgba(20, 27, 48, 0.65); /* Glass surface opacity */
+    
+    --primary: #f39c12;          /* Sleek warm amber gold */
+    --primary-glow: rgba(243, 156, 18, 0.4);
+    
+    --secondary: #9b59b6;        /* Amethyst purple (player accent) */
+    --secondary-glow: rgba(155, 89, 182, 0.3);
+    
+    --success: #2ecc71;          /* Emerald green (win state) */
+    --success-glow: rgba(46, 204, 113, 0.4);
+    
+    --danger: #e74c3c;           /* Crimson red (loss state / dealer accent) */
+    --danger-glow: rgba(231, 76, 60, 0.4);
+    
+    --info: #3498db;             /* Cyan accent (auditing / debug logs) */
+    
+    --border-glow: rgba(255, 255, 255, 0.08);
+    --border-gold: rgba(243, 156, 18, 0.2);
+    
+    --text: #f5f6fa;
+    --text-muted: #8b97b0;
+    
+    /* Fonts */
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    
+    /* Layouts */
+    --radius-lg: 16px;
+    --radius-md: 8px;
+    --shadow-premium: 0 12px 40px rgba(0, 0, 0, 0.6);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- GLOBAL HELPER UTILITIES --- */
+.hidden {
+    display: none !important;
+}
+
+/* --- RESET & GLOBAL SETTINGS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* --- SCROLLBAR DESIGN --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* --- GLASSMORPHISM CLASS UTILITIES --- */
+.glass-card {
+    background: var(--bg-surface);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--border-glow);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-premium);
+}
+
+/* --- STRUCTURE / ANIMATED SCREENS --- */
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 95vh;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.screen.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- LOBBY SCREEN PANELS --- */
+#lobby-screen {
+    justify-content: center;
+    align-items: center;
+}
+
+.lobby-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid var(--border-gold);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    animation: zoomIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-emoji {
+    font-size: 3rem;
+    margin-bottom: 5px;
+    animation: rotate 15s linear infinite;
+}
+
+.logo-area h1 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--text) 30%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sub-logo {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 10px;
+    color: var(--primary);
+    margin-right: -10px; /* Offset spacing */
+}
+
+.tagline {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.rules-container {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: left;
+}
+
+.rules-container h3 {
+    font-family: var(--font-heading);
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 6px;
+}
+
+.rules-container ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rules-container li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.login-form label {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.login-form input {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-glow);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.login-form input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* --- BUTTON LAYOUTS --- */
+.glow-btn {
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 14px 24px;
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
+    letter-spacing: 1px;
+}
+
+.glow-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.6);
+}
+
+.glow-btn:active {
+    transform: translateY(0);
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glow);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text);
+}
+
+.danger-btn {
+    border-color: rgba(231, 76, 60, 0.2);
+}
+.danger-btn:hover {
+    background: rgba(231, 76, 60, 0.15);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+/* --- GAME SCREEN INTERFACES --- */
+#game-screen {
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- GAME HEADER PANEL --- */
+.game-header {
+    width: 100%;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    font-size: 2.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--border-glow);
+}
+
+.profile-summary h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.stats-mini {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.balance-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius-md);
+    padding: 8px 20px;
+}
+
+.chip-icon {
+    font-size: 1.8rem;
+    animation: rotate 6s linear infinite;
+}
+
+.chip-label {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.balance-display h2 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- POKER TABLE FEEL ARENA --- */
+.table-arena {
+    flex: 1;
+    background: radial-gradient(circle at center, #1b203c 0%, #0d0f1c 100%);
+    border: 2px solid var(--border-glow);
+    border-radius: var(--radius-lg);
+    box-shadow: inset 0 0 80px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative Gold Trim inside table */
+.table-arena::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 1px dashed rgba(243, 156, 18, 0.15);
+    border-radius: calc(var(--radius-lg) - 5px);
+    pointer-events: none;
+}
+
+.player-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.title-computer {
+    color: var(--danger);
+}
+
+.title-player {
+    color: var(--secondary);
+}
+
+.hand-rank-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glow);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text);
+    animation: fadeIn 0.4s ease;
+}
+
+.hand-rank-badge.hidden {
+    display: none;
+}
+
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    min-height: 160px;
+    align-items: center;
+}
+
+/* --- THE TABLE CENTER STATUS OR WIN OVERLAYS --- */
+.table-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    position: relative;
+    z-index: 20;
+}
+
+.action-prompt {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.showdown-card {
+    padding: 20px 40px;
+    text-align: center;
+    border: 1px solid var(--border-gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.showdown-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.showdown-card.win h2 {
+    color: var(--success);
+    text-shadow: 0 0 15px var(--success-glow);
+}
+
+.showdown-card.loss h2 {
+    color: var(--danger);
+    text-shadow: 0 0 15px var(--danger-glow);
+}
+
+.showdown-card.push h2 {
+    color: var(--primary);
+    text-shadow: 0 0 15px var(--primary-glow);
+}
+
+#showdown-details {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+#showdown-chips-change {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.win #showdown-chips-change {
+    color: var(--success);
+}
+.loss #showdown-chips-change {
+    color: var(--danger);
+}
+.push #showdown-chips-change {
+    color: var(--primary);
+}
+
+.showdown-card button {
+    margin-top: 5px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+}
+
+/* --- THE 3D PLAYING CARD ENGINE --- */
+.card {
+    width: 105px;
+    height: 150px;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+/* FRONT FACE DESIGN */
+.card-front {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f5f8 100%);
+    border: 1px solid #dcdde1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.card-corner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.card-corner.corner-bottom {
+    transform: rotate(180deg);
+}
+
+.card-center-suit {
+    font-size: 3.5rem;
+    align-self: center;
+    margin-top: -5px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.card.suit-red {
+    color: #ff3b30; /* Brighter, more vibrant red */
+}
+.card.suit-red .card-front {
+    border: 1px solid rgba(255, 59, 48, 0.4);
+    box-shadow: inset 0 0 20px rgba(255, 59, 48, 0.08);
+}
+
+.card.suit-black {
+    color: #1c1c1e; /* Richer dark color */
+}
+.card.suit-black .card-front {
+    border: 1px solid rgba(28, 28, 30, 0.4);
+    box-shadow: inset 0 0 20px rgba(28, 28, 30, 0.08);
+}
+
+/* BACK FACE DESIGN */
+.card-back {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    border: 3px solid #f39c12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.card-back::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1px dashed rgba(243, 156, 18, 0.4);
+    border-radius: 4px;
+}
+
+.card-back-pattern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #f39c12;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.card-back-pattern span {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+    animation: rotate 8s linear infinite;
+}
+
+/* CARD INTERACTIONS (DISCARD STATES) */
+.card.selected-discard {
+    transform: translateY(-20px);
+}
+
+.card.selected-discard .card-inner {
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.7);
+    border: 2px solid var(--danger);
+}
+
+/* Hover effects (Only in discard/active phase) */
+#player-cards .card:not(.selected-discard):hover {
+    transform: translateY(-8px);
+}
+
+/* Deal Dealing Animation delay offsets */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+
+/* --- CONTROLS FOOTER BOARDS --- */
+.game-footer {
+    width: 100%;
+    padding: 15px 25px;
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls-group {
+    display: none;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.controls-group.active {
+    display: flex;
+}
+
+.controls-group h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* --- CHIP SELECTOR DESIGN --- */
+.chip-selector {
+    display: flex;
+    gap: 12px;
+}
+
+.chip-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2c3e50;
+    border: 3px dashed #bdc3c7;
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.chip-btn::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+}
+
+.chip-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+}
+
+.chip-btn[data-value="10"] { background: #16a085; border-color: #1abc9c; }
+.chip-btn[data-value="25"] { background: #2980b9; border-color: #3498db; }
+.chip-btn[data-value="50"] { background: #8e44ad; border-color: #9b59b6; }
+.chip-btn[data-value="100"] { background: #c0392b; border-color: #e74c3c; }
+
+.bet-input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.bet-input-wrapper input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-glow);
+    border-radius: var(--radius-md);
+    padding: 10px 15px;
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 90px;
+    outline: none;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.bet-input-wrapper input:focus {
+    border-color: var(--primary);
+}
+
+/* --- DISCARD ACTION DESIGNS --- */
+.discard-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.discard-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#discard-counter {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* --- MODAL DASHBOARD OVERLAY --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-card {
+    width: 90%;
+    max-width: 680px;
+    max-height: 90vh;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    border: 1px solid var(--border-gold);
+    animation: zoomIn 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 12px;
+}
+
+.modal-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.close-btn:hover {
+    color: var(--danger);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stats-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    text-align: center;
+}
+
+.box-icon {
+    font-size: 1.3rem;
+}
+
+.stats-box h3 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin: 5px 0;
+}
+
+.stat-highlight {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* --- TALLY RATIO BAR --- */
+.games-tally {
+    width: 100%;
+}
+
+.tally-bar {
+    width: 100%;
+    height: 25px;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.tally-segment {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.5s ease;
+}
+
+.seg-win { background-color: var(--success); }
+.seg-push { background-color: var(--primary); }
+.seg-loss { background-color: var(--danger); }
+
+/* --- LUCK METER ELEMENTS --- */
+.luck-meter-container {
+    width: 100%;
+    background: rgba(255,255,255,0.01);
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: var(--radius-md);
+    padding: 20px;
+}
+
+.luck-meter-container h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.luck-status {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.meter-bar-wrapper {
+    width: 100%;
+}
+
+.meter-bar-bg {
+    width: 100%;
+    height: 12px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-glow);
+}
+
+.meter-bar-fill {
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(90deg, var(--danger) 0%, var(--primary) 50%, var(--success) 100%);
+    border-radius: 6px;
+    transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.meter-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.meter-mid {
+    position: relative;
+}
+
+/* --- AUDIT / ENGINE LOG ACTIONS --- */
+.audit-toggle-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.audit-toggle-wrapper button {
+    flex: 1;
+}
+
+.audit-log-window {
+    width: 100%;
+    background: #000;
+    border: 1px solid #111;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-top: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+
+.audit-header {
+    background: #111;
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #222;
+}
+
+.audit-header h4 {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    color: var(--info);
+    letter-spacing: 0.5px;
+}
+
+.audit-status-badge {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--success);
+    background: rgba(46,204,113,0.1);
+    border: 1px solid var(--success);
+    border-radius: 3px;
+    padding: 1px 5px;
+}
+
+.audit-log-content {
+    padding: 15px;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: #00ff66; /* Pure retro green matrix logs */
+    max-height: 180px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+/* --- SOUND FLOATER BTN --- */
+.sound-toggle-floater {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+}
+
+.sound-toggle-floater button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-glow);
+    color: var(--text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: var(--transition-smooth);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sound-toggle-floater button:hover {
+    transform: scale(1.08);
+    border-color: var(--primary);
+}
+
+/* --- KEYFRAME ANIMATIONS --- */
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); opacity: 1; }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/* --- MOBILE RESPONSIVENESS OVERRIDES --- */
+@media (max-width: 768px) {
+    .app-container {
+        height: 100vh;
+        padding: 5px;
+    }
+    
+    .game-header {
+        padding: 10px 15px;
+    }
+    
+    .profile-summary h2 {
+        font-size: 1rem;
+    }
+    
+    .balance-display {
+        padding: 6px 12px;
+    }
+    
+    .balance-display h2 {
+        font-size: 1.1rem;
+    }
+    
+    .table-arena {
+        padding: 15px 10px;
+    }
+    
+    .card {
+        width: 60px;
+        height: 85px;
+    }
+    
+    .card-center-suit {
+        font-size: 1.8rem;
+    }
+    
+    .card-corner {
+        font-size: 0.75rem;
+    }
+    
+    .card-back-pattern span {
+        font-size: 0.95rem;
+    }
+    
+    .card.selected-discard {
+        transform: translateY(-10px);
+    }
+    
+    .showdown-card {
+        padding: 15px 25px;
+    }
+    
+    .showdown-card h2 {
+        font-size: 1.3rem;
+    }
+    
+    .game-footer {
+        padding: 10px 15px;
+        min-height: 100px;
+    }
+    
+    .controls-group {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .audit-toggle-wrapper {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* --- COMMUNITY CARDS ARENA STYLING --- */
+.community-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px dashed var(--border-gold);
+    border-radius: var(--radius-lg);
+    padding: 12px 24px;
+    margin: 10px auto;
+    animation: fadeIn 0.5s ease;
+    z-index: 5;
+    position: relative;
+    max-width: 90%;
+}
+
+.community-section .section-title {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+.community-cards {
+    min-height: 120px !important;
+    gap: 10px !important;
+}
+
+.community-cards .card {
+    width: 80px;
+    height: 115px;
+}
+
+.community-cards .card-center-suit {
+    font-size: 2.2rem;
+    margin-top: 0;
+}
+
+.community-cards .card-corner {
+    font-size: 0.85rem;
+}
+
+.betting-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}

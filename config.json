@@ -1,0 +1,6 @@
+{
+    "player_name": "Lucky Gambler",
+    "default_bet_amount": 50,
+    "color_scheme_toggle": true,
+    "sound_notifications": true
+}

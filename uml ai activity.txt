@@ -1,0 +1,105 @@
+<mxfile host="Electron" modified="2026-05-19T05:36:50Z" agent="5.0" version="21.6.8" type="device">
+  <diagram id="activity_flow" name="Activity Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Start Node -->
+        <mxCell id="act_start" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#2ECC71;strokeColor=#27AE60;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Steps -->
+        <mxCell id="step1" value="Create Profile &amp;amp; Enter Name" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF5FB;strokeColor=#2980B9;" vertex="1" parent="1">
+          <mxGeometry x="155" y="110" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" value="Enter Casino" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF5FB;strokeColor=#2980B9;" vertex="1" parent="1">
+          <mxGeometry x="155" y="190" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" value="Input Buy-in Bet &amp;amp; Deal Hole" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF5FB;strokeColor=#2980B9;" vertex="1" parent="1">
+          <mxGeometry x="155" y="270" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Decision: Preflop -->
+        <mxCell id="dec1" value="Enough chips?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
+          <mxGeometry x="165" y="360" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="opt_bet1" value="Input Flop Wager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F8F5;strokeColor=#1ABC9C;" vertex="1" parent="1">
+          <mxGeometry x="50" y="480" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="opt_chk1" value="Check Preflop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDEDEC;strokeColor=#E74C3C;" vertex="1" parent="1">
+          <mxGeometry x="270" y="480" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Merge: Preflop -->
+        <mxCell id="mrg1" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#B0BEC5;" vertex="1" parent="1">
+          <mxGeometry x="195" y="570" width="40" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Reveal Flop -->
+        <mxCell id="step4" value="Deal Flop Community Cards (3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF5FB;strokeColor=#2980B9;" vertex="1" parent="1">
+          <mxGeometry x="155" y="650" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Decision: Flop -->
+        <mxCell id="dec2" value="Enough chips?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
+          <mxGeometry x="165" y="740" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="opt_bet2" value="Input River Wager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F8F5;strokeColor=#1ABC9C;" vertex="1" parent="1">
+          <mxGeometry x="50" y="860" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="opt_chk2" value="Check Flop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDEDEC;strokeColor=#E74C3C;" vertex="1" parent="1">
+          <mxGeometry x="270" y="860" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Merge: Flop -->
+        <mxCell id="mrg2" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#B0BEC5;" vertex="1" parent="1">
+          <mxGeometry x="195" y="950" width="40" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Showdown Steps -->
+        <mxCell id="step5" value="Deal Turn &amp;amp; River Community (Total 5)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF5FB;strokeColor=#2980B9;" vertex="1" parent="1">
+          <mxGeometry x="155" y="1030" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="step6" value="Evaluate Best 5 of 7 Cards" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF5FB;strokeColor=#2980B9;" vertex="1" parent="1">
+          <mxGeometry x="155" y="1120" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="step7" value="Deduct/Pay Bets &amp;amp; Log History" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF5FB;strokeColor=#2980B9;" vertex="1" parent="1">
+          <mxGeometry x="155" y="1210" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- End Node -->
+        <mxCell id="act_end" value="" style="ellipse;html=1;shape=endState;fillColor=#E74C3C;strokeColor=#C0392B;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1300" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- ==================== CONNECTORS ==================== -->
+        <mxCell id="c1" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="act_start" target="step1"/>
+        <mxCell id="c2" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step1" target="step2"/>
+        <mxCell id="c3" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step2" target="step3"/>
+        <mxCell id="c4" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step3" target="dec1"/>
+        
+        <mxCell id="c5" value="Yes" style="endArrow=block;html=1;rounded=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="1" source="dec1" target="opt_bet1"/>
+        <mxCell id="c6" value="No" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="1" source="dec1" target="opt_chk1"/>
+        
+        <mxCell id="c7" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="opt_bet1" target="mrg1"/>
+        <mxCell id="c8" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="opt_chk1" target="mrg1"/>
+        
+        <mxCell id="c9" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="mrg1" target="step4"/>
+        <mxCell id="c10" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step4" target="dec2"/>
+        
+        <mxCell id="c11" value="Yes" style="endArrow=block;html=1;rounded=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="1" source="dec2" target="opt_bet2"/>
+        <mxCell id="c12" value="No" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="1" source="dec2" target="opt_chk2"/>
+        
+        <mxCell id="c13" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="opt_bet2" target="mrg2"/>
+        <mxCell id="c14" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="opt_chk2" target="mrg2"/>
+        
+        <mxCell id="c15" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="mrg2" target="step5"/>
+        <mxCell id="c16" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step5" target="step6"/>
+        <mxCell id="c17" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step6" target="step7"/>
+        <mxCell id="c18" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step7" target="act_end"/>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

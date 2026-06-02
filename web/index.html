@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Flip Poker - Provably Fair</title>
+    <!-- Google Fonts for Sleek Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Confetti Canvas for Victory Celebrations -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- LOBBY SCREEN (LOGIN / PROFILE SELECT) -->
+        <div id="lobby-screen" class="screen active">
+            <div class="glass-card lobby-card">
+                <div class="logo-area animate-glow">
+                    <span class="logo-emoji">🌌</span>
+                    <h1>GRAVITY FLIP</h1>
+                    <span class="sub-logo">POKER</span>
+                </div>
+                <p class="tagline">A pure luck-based poker duel against the machine. Zero computer advantage. Provably fair random mechanics.</p>
+                
+                <div class="rules-container">
+                    <h3>Game Guidelines</h3>
+                    <ul>
+                        <li>🃏 Standard 52-card deck shuffled every single hand.</li>
+                        <li>🤝 Both players receive 2 hole cards.</li>
+                        <li>📍 5 community cards dealt in streets: Flop (3 cards) and River (2 cards).</li>
+                        <li>🏆 Showdown evaluates the mathematically best 5-card hand from the 7 available cards.</li>
+                        <li>⚖️ No strategic computer betting—always calls player bets.</li>
+                    </ul>
+                </div>
+
+                <div class="login-form">
+                    <label for="player-name-input">Enter Profile Name</label>
+                    <input type="text" id="player-name-input" placeholder="e.g. Lucky Gambler" value="Lucky Gambler" maxlength="20">
+                    <button id="start-game-btn" class="glow-btn">ENTER CASINO</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN GAMEPLAY SCREEN -->
+        <div id="game-screen" class="screen">
+            <!-- HEADER / STATS OVERVIEW -->
+            <header class="game-header glass-card">
+                <div class="profile-summary">
+                    <span class="user-avatar">👤</span>
+                    <div>
+                        <h2 id="display-player-name">Lucky Gambler</h2>
+                        <p class="stats-mini">Played: <span id="lbl-games-played">0</span> | Win Streak: <span id="lbl-win-streak">0</span></p>
+                    </div>
+                </div>
+
+                <div class="balance-display animate-glow">
+                    <span class="chip-icon">🟡</span>
+                    <div>
+                        <p class="chip-label">CHIPS</p>
+                        <h2 id="display-chips">1,000</h2>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button id="btn-show-dashboard" class="action-btn">📊 Dashboard</button>
+                    <button id="btn-quit" class="action-btn danger-btn">🚪 Exit</button>
+                </div>
+            </header>
+
+            <main class="table-arena">
+                <!-- COMPUTER AREA -->
+                <div class="player-section" id="computer-section">
+                    <div class="section-header">
+                        <span class="section-title title-computer">DEALER (AI)</span>
+                        <div id="computer-hand-rank" class="hand-rank-badge hidden">High Card</div>
+                    </div>
+                    <div class="cards-wrapper" id="computer-cards">
+                        <!-- RENDERED DYNAMICALLY -->
+                    </div>
+                </div>
+
+                <!-- TABLE CENTER DIVIDER / COMMUNITY CARDS -->
+                <div class="table-center">
+                    <div id="community-section" class="community-section hidden">
+                        <div class="section-title">COMMUNITY CARDS</div>
+                        <div class="cards-wrapper community-cards" id="community-cards">
+                            <!-- RENDERED DYNAMICALLY -->
+                        </div>
+                    </div>
+                    <div id="action-prompt" class="action-prompt">Place your bet to deal cards...</div>
+                    
+                    <!-- SHOWDOWN RESULTS CARD -->
+                    <div id="showdown-results" class="showdown-card glass-card hidden">
+                        <h2 id="showdown-headline">YOU WIN!</h2>
+                        <p id="showdown-details">Two Pair vs One Pair</p>
+                        <h3 id="showdown-chips-change">+50 Chips</h3>
+                        <button id="btn-next-hand" class="glow-btn">PLAY NEXT HAND</button>
+                    </div>
+                </div>
+
+                <!-- PLAYER AREA -->
+                <div class="player-section" id="player-section">
+                    <div class="section-header">
+                        <span class="section-title title-player">YOUR HOLE CARDS</span>
+                        <div id="player-hand-rank" class="hand-rank-badge hidden">One Pair</div>
+                    </div>
+                    <div class="cards-wrapper" id="player-cards">
+                        <!-- RENDERED DYNAMICALLY -->
+                    </div>
+                </div>
+            </main>
+
+            <!-- CONTROLS FOOTER -->
+            <footer class="game-footer glass-card">
+                <!-- BETTING STATION -->
+                <div id="betting-controls" class="controls-group active">
+                    <h3>Place Your Wager</h3>
+                    <div class="chip-selector">
+                        <button class="chip-btn" data-value="10">10</button>
+                        <button class="chip-btn" data-value="25">25</button>
+                        <button class="chip-btn" data-value="50">50</button>
+                        <button class="chip-btn" data-value="100">100</button>
+                    </div>
+                    <div class="bet-input-wrapper">
+                        <input type="number" id="bet-input" value="50" min="10" step="5">
+                        <button id="btn-deal" class="glow-btn">DEAL HAND</button>
+                    </div>
+                </div>
+
+                <!-- STREET BETTING CONTROLS -->
+                <div id="street-controls" class="controls-group">
+                    <h3 id="street-title">Flop Betting Round</h3>
+                    <p class="discard-subtitle" id="street-subtitle">Place an additional wager or Check to continue.</p>
+                    <div class="betting-action-row" style="display: flex; gap: 20px; align-items: center; justify-content: space-between; width: 100%;">
+                        <div class="chip-selector" id="street-chip-selector">
+                            <button class="chip-btn street-chip" data-value="10">10</button>
+                            <button class="chip-btn street-chip" data-value="25">25</button>
+                            <button class="chip-btn street-chip" data-value="50">50</button>
+                            <button class="chip-btn street-chip" data-value="100">100</button>
+                        </div>
+                        <div class="bet-input-wrapper">
+                            <input type="number" id="street-bet-input" value="0" min="0" step="5">
+                            <button id="btn-street-action" class="glow-btn">CHECK / CONTINUE</button>
+                            <button id="btn-fold" class="glow-btn danger-btn">FOLD</button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- STATISTICS & LUCK DASHBOARD OVERLAY -->
+    <div id="dashboard-overlay" class="overlay">
+        <div class="glass-card modal-card">
+            <div class="modal-header">
+                <h2>CASINO LUCK STATS</h2>
+                <button id="btn-close-dashboard" class="close-btn">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="stats-grid">
+                    <div class="stats-box">
+                        <span class="box-icon">🟡</span>
+                        <h3>Chips P/L</h3>
+                        <p id="stat-chips-pl" class="stat-highlight">+0</p>
+                    </div>
+                    <div class="stats-box">
+                        <span class="box-icon">📈</span>
+                        <h3>Win Rate</h3>
+                        <p id="stat-win-rate" class="stat-highlight">0.0%</p>
+                    </div>
+                    <div class="stats-box">
+                        <span class="box-icon">🏆</span>
+                        <h3>Best Hand</h3>
+                        <p id="stat-best-hand" class="stat-highlight">None</p>
+                    </div>
+                    <div class="stats-box">
+                        <span class="box-icon">🔥</span>
+                        <h3>Max Streak</h3>
+                        <p id="stat-max-streak" class="stat-highlight">0</p>
+                    </div>
+                </div>
+
+                <div class="games-tally">
+                    <div class="tally-bar">
+                        <div id="bar-wins" class="tally-segment seg-win" style="width: 33%">Wins: 0</div>
+                        <div id="bar-pushes" class="tally-segment seg-push" style="width: 33%">Ties: 0</div>
+                        <div id="bar-losses" class="tally-segment seg-loss" style="width: 34%">Losses: 0</div>
+                    </div>
+                </div>
+
+                <!-- LUCK METER GAUGE -->
+                <div class="luck-meter-container">
+                    <h3>Expected vs Actual Win Rate (Decisive Hands)</h3>
+                    <div id="lbl-luck-meter-status" class="luck-status">Balanced ⚖️</div>
+                    <div class="meter-bar-wrapper">
+                        <div class="meter-bar-bg">
+                            <div id="luck-meter-fill" class="meter-bar-fill" style="width: 50%;"></div>
+                        </div>
+                        <div class="meter-labels">
+                            <span>0% (Cold)</span>
+                            <span class="meter-mid">50% (Expected)</span>
+                            <span>100% (Hot)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUDIT WINDOW TOGGLE -->
+                <div class="audit-toggle-wrapper">
+                    <button id="btn-toggle-audit-logs" class="action-btn">🛠️ Open Debug Provable Fair Log</button>
+                    <button id="btn-reset-stats" class="action-btn danger-btn">🗑️ Reset Profile Stats</button>
+                </div>
+
+                <!-- DECK AUDIT LOG WINDOW -->
+                <div id="audit-log-window" class="audit-log-window hidden">
+                    <div class="audit-header">
+                        <h4>Provably Fair Cryptographic Audit</h4>
+                        <span class="audit-status-badge">ONLINE</span>
+                    </div>
+                    <div id="audit-log-content" class="audit-log-content">
+                        <!-- REAL-TIME AUDIT LOGS APPENDED HERE -->
+                        [SYSTEM] Awaiting next hand transaction...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO TOGGLE FLOATER -->
+    <div class="sound-toggle-floater">
+        <button id="btn-sound-toggle" title="Toggle Sound Notifications">🔊</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
